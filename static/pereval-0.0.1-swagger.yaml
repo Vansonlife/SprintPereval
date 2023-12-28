@@ -1,0 +1,164 @@
+name: Pereval List
+description: ''
+renders:
+  - application/json
+  - text/html
+parses:
+  - application/json
+  - application/x-www-form-urlencoded
+  - multipart/form-data
+actions:
+  POST:
+    id:
+      type: integer
+      required: false
+      read_only: true
+      label: ID
+    user:
+      type: nested object
+      required: true
+      read_only: false
+      label: User
+      children:
+        email:
+          type: string
+          required: true
+          read_only: false
+          label: Email
+        fam:
+          type: string
+          required: true
+          read_only: false
+          label: Fam
+        name:
+          type: string
+          required: true
+          read_only: false
+          label: Name
+        otc:
+          type: string
+          required: true
+          read_only: false
+          label: Otc
+        phone:
+          type: string
+          required: true
+          read_only: false
+          label: Phone
+    perevals:
+      type: nested object
+      required: true
+      read_only: false
+      label: Perevals
+      children:
+        beauty_title:
+          type: string
+          required: true
+          read_only: false
+          label: Название препятствия
+          max_length: 255
+        title:
+          type: string
+          required: true
+          read_only: false
+          label: Название вершины
+          max_length: 255
+        other_titles:
+          type: string
+          required: true
+          read_only: false
+          label: Другое название
+          max_length: 255
+        connect:
+          type: string
+          required: false
+          read_only: false
+          label: Connect
+    coords:
+      type: nested object
+      required: true
+      read_only: false
+      label: Coords
+      children:
+        latitude:
+          type: float
+          required: true
+          read_only: false
+          label: Широта
+        longitude:
+          type: float
+          required: true
+          read_only: false
+          label: Долгота
+        height:
+          type: integer
+          required: true
+          read_only: false
+          label: Высота
+          min_value: -2147483648
+          max_value: 2147483647
+    level:
+      type: nested object
+      required: true
+      read_only: false
+      label: Level
+      children:
+        winter:
+          type: string
+          required: false
+          read_only: false
+          label: Зима
+          max_length: 10
+        summer:
+          type: string
+          required: false
+          read_only: false
+          label: Лето
+          max_length: 10
+        autumn:
+          type: string
+          required: false
+          read_only: false
+          label: Осень
+          max_length: 10
+        spring:
+          type: string
+          required: false
+          read_only: false
+          label: Весна
+          max_length: 10
+    image:
+      type: field
+      required: true
+      read_only: false
+      label: Image
+      child:
+        type: nested object
+        required: true
+        read_only: false
+        children:
+          data:
+            type: image upload
+            required: true
+            read_only: false
+            label: Data
+          title:
+            type: string
+            required: true
+            read_only: false
+            label: Title
+            max_length: 255
+    status:
+      type: choice
+      required: false
+      read_only: false
+      label: Status
+      choices:
+        - value: new
+          display_name: новый
+        - value: pending
+          display_name: модератор взял в работу
+        - value: accepted
+          display_name: модерация прошла успешно
+        - value: rejected
+          display_name: модерация прошла, информация не принята
